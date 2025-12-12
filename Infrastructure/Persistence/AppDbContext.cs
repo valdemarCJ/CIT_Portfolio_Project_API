@@ -47,11 +47,11 @@ public class AppDbContext : DbContext
         modelBuilder.Entity<Rating>().HasKey(x => x.Tconst);
         modelBuilder.Entity<MovieDetail>().HasKey(x => x.Tconst);
         modelBuilder.Entity<MovieGenre>().HasKey(x => new { x.Tconst, x.Genre });
-        modelBuilder.Entity<MoviePerson>().HasKey(x => new { x.Tconst, x.Nconst });
+        modelBuilder.Entity<MoviePerson>().HasKey(x => new { x.Tconst, x.Nconst, x.Role, x.Ordering });
         modelBuilder.Entity<Person>().HasKey(x => x.Nconst);
         modelBuilder.Entity<PersonProfession>().HasKey(x => new { x.Nconst, x.Profession });
         modelBuilder.Entity<PersonKnownFor>().HasKey(x => new { x.Nconst, x.Tconst });
-        modelBuilder.Entity<WordIndex>().HasKey(x => x.Word);
+        modelBuilder.Entity<WordIndex>().HasKey(x => new { x.Tconst, x.Word, x.Field });
 
         modelBuilder.Entity<User>().HasKey(x => x.Id);
         modelBuilder.Entity<UserBookmark>().HasKey(x => new { x.UserId, x.Tconst });
@@ -100,7 +100,11 @@ public class AppDbContext : DbContext
             entity.ToTable("movie_people");
             entity.Property(e => e.Tconst).HasColumnName("tconst");
             entity.Property(e => e.Nconst).HasColumnName("nconst");
+            entity.Property(e => e.Role).HasColumnName("role");
+            entity.Property(e => e.Ordering).HasColumnName("ordering");
             entity.Property(e => e.Category).HasColumnName("category");
+            entity.Property(e => e.Job).HasColumnName("job");
+            entity.Property(e => e.Characters).HasColumnName("characters");
         });
 
         modelBuilder.Entity<MovieGenre>(entity =>
@@ -108,6 +112,30 @@ public class AppDbContext : DbContext
             entity.ToTable("movie_genres");
             entity.Property(e => e.Tconst).HasColumnName("tconst");
             entity.Property(e => e.Genre).HasColumnName("genre");
+        });
+
+        modelBuilder.Entity<MovieDetail>(entity =>
+        {
+            entity.ToTable("movie_details");
+            entity.Property(e => e.Tconst).HasColumnName("tconst");
+            entity.Property(e => e.Awards).HasColumnName("awards");
+            entity.Property(e => e.Plot).HasColumnName("plot");
+            entity.Property(e => e.Rated).HasColumnName("rated");
+            entity.Property(e => e.Poster).HasColumnName("poster");
+            entity.Property(e => e.Boxoffice).HasColumnName("boxoffice");
+            entity.Property(e => e.AkaTitles).HasColumnName("aka_titles");
+            entity.Property(e => e.ParentTconst).HasColumnName("parenttconst");
+            entity.Property(e => e.SeasonNumber).HasColumnName("seasonnumber");
+            entity.Property(e => e.EpisodeNumber).HasColumnName("episodenumber");
+        });
+
+        modelBuilder.Entity<WordIndex>(entity =>
+        {
+            entity.ToTable("word_index");
+            entity.Property(e => e.Tconst).HasColumnName("tconst");
+            entity.Property(e => e.Word).HasColumnName("word");
+            entity.Property(e => e.Field).HasColumnName("field");
+            entity.Property(e => e.Lexeme).HasColumnName("lexeme");
         });
 
         modelBuilder.Entity<User>(entity =>

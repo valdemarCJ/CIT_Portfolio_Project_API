@@ -1,7 +1,8 @@
 # .NET build output
 bin/
 obj/
-
+appsettings.json
+appsettings.Development.json
 # Visual Studio cache and settings
 .vs/
 *.user

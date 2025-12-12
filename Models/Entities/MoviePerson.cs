@@ -14,6 +14,14 @@ public class MoviePerson
     [RegularExpression("^nm\\d{3,}$", ErrorMessage = "Nconst must look like 'nm123' (IMDB key)")]
     public string Nconst { get; set; } = default!;
 
-    [StringLength(64)]
-    public string? Category { get; set; } // actor, director, writer, etc.
+    public string? Role { get; set; }
+    
+    public int Ordering { get; set; } = 0;
+
+    [StringLength(100)]
+    public string? Category { get; set; }
+    
+    public string? Job { get; set; }
+    
+    public string? Characters { get; set; }
 }

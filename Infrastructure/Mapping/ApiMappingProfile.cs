@@ -10,8 +10,13 @@ public class ApiMappingProfile : Profile
     public ApiMappingProfile()
     {
         CreateMap<Movie, MovieDto>();
+        CreateMap<MovieDetail, MovieDetailDto>();
+        CreateMap<MovieGenre, MovieGenreDto>();
+        CreateMap<MoviePerson, MoviePersonDto>();
         CreateMap<Person, PersonDto>();
+        CreateMap<Rating, ImdbRatingDto>();
         CreateMap<User, UserDto>();
+        CreateMap<WordIndex, WordIndexDto>();
 
         CreateMap<SearchRow, SearchDto>();
         CreateMap<BookmarkRow, BookmarkDto>();

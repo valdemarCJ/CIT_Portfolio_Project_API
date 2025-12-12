@@ -145,22 +145,48 @@ builder.Services.AddSingleton<PasswordHasher>();
 
 // DI: Repositories
 builder.Services.AddScoped<IMovieRepository, MovieRepository>();
+builder.Services.AddScoped<IMovieDetailRepository, MovieDetailRepository>();
+builder.Services.AddScoped<IMovieGenreRepository, MovieGenreRepository>();
+builder.Services.AddScoped<IMoviePersonRepository, MoviePersonRepository>();
 builder.Services.AddScoped<IPersonRepository, PersonRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IBookmarkRepository, BookmarkRepository>();
 builder.Services.AddScoped<IRatingRepository, RatingRepository>();
+builder.Services.AddScoped<IRatingReadRepository, RatingReadRepository>();
 builder.Services.AddScoped<ISearchRepository, SearchRepository>();
 builder.Services.AddScoped<IAnalyticsRepository, AnalyticsRepository>();
+builder.Services.AddScoped<IWordIndexRepository, WordIndexRepository>();
 
 // DI: Managers (previously Services)
 builder.Services.AddScoped<IMovieManager, MovieManager>();
+builder.Services.AddScoped<IMovieDetailManager, MovieDetailManager>();
+builder.Services.AddScoped<IMovieGenreManager, MovieGenreManager>();
+builder.Services.AddScoped<IMoviePersonManager, MoviePersonManager>();
 builder.Services.AddScoped<IPersonManager, PersonManager>();
 builder.Services.AddScoped<IUserManager, UserManager>();
 builder.Services.AddScoped<IAuthManager, AuthManager>();
 builder.Services.AddScoped<IBookmarkManager, BookmarkManager>();
 builder.Services.AddScoped<IRatingManager, RatingManager>();
+builder.Services.AddScoped<IRatingReadManager, RatingReadManager>();
 builder.Services.AddScoped<ISearchManager, SearchManager>();
 builder.Services.AddScoped<IAnalyticsManager, AnalyticsManager>();
+builder.Services.AddScoped<IWordIndexManager, WordIndexManager>();
+
+// CORS configuration for frontend
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowReactApp", builder =>
+    {
+        builder
+            .WithOrigins(
+                "http://localhost:3000", "https://localhost:3000",  // React default ports
+                "http://localhost:3001", "https://localhost:3001",
+				"http://localhost:5173", "https://localhost:5173"
+            )
+            .AllowAnyMethod()
+            .AllowAnyHeader();
+    });
+});
 
 var app = builder.Build();
 
@@ -186,6 +212,9 @@ else
 
 app.UseHttpsRedirection();
 app.UseStatusCodePages();
+
+// Enable CORS
+app.UseCors("AllowReactApp");
 
 app.UseAuthentication();
 app.UseAuthorization();

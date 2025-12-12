@@ -10,6 +10,6 @@ public class MovieGenre
     public string Tconst { get; set; } = default!;
 
     [Required]
-    [StringLength(64)]
+    [StringLength(100)]
     public string Genre { get; set; } = default!;
 }
