@@ -9,12 +9,12 @@ namespace CIT_Portfolio_Project_API.UnitTests.Models;
 [TestClass]
 public class MovieDetailTests
 {
-    private MovieDetail CreateMovieDetail(string? tconst, string? plot, int? runtimeMinutes, int? startYear) => new MovieDetail
+    private MovieDetail CreateMovieDetail(string? tconst, string? plot, int? seasonNumber, int? episodeNumber) => new MovieDetail
     {
         Tconst = tconst!,
         Plot = plot,
-        RuntimeMinutes = runtimeMinutes,
-        StartYear = startYear
+        SeasonNumber = seasonNumber,
+        EpisodeNumber = episodeNumber
     };
 
     private bool TryValidateModel(object model, out ICollection<ValidationResult> results)
@@ -33,7 +33,7 @@ public class MovieDetailTests
     public void MovieDetail_Tconst_ShouldPass(string tconst)
     {
         // Arrange
-        var model = CreateMovieDetail(tconst, plot: null, runtimeMinutes: 0, startYear: 2000);
+        var model = CreateMovieDetail(tconst, plot: null, seasonNumber: 1, episodeNumber: 1);
         // Act
         var ok = TryValidateModel(model, out var results);
         // Assert
@@ -54,7 +54,7 @@ public class MovieDetailTests
     public void MovieDetail_Tconst_ShouldFail(string? tconst)
     {
         // Arrange
-        var model = CreateMovieDetail(tconst, plot: null, runtimeMinutes: 0, startYear: 2000);
+        var model = CreateMovieDetail(tconst, plot: null, seasonNumber: 1, episodeNumber: 1);
         // Act
         var ok = TryValidateModel(model, out var results);
         // Assert
@@ -113,7 +113,7 @@ public class MovieDetailTests
     public void MovieDetail_Plot_ShouldPass(string? plot)
     {
         // Arrange
-        var model = CreateMovieDetail("tt123", plot, runtimeMinutes: 0, startYear: 2000);
+        var model = CreateMovieDetail("tt123", plot, seasonNumber: 1, episodeNumber: 1);
         // Act
         var ok = TryValidateModel(model, out var results);
         // Assert
@@ -131,7 +131,7 @@ public class MovieDetailTests
     public void MovieDetail_StartYear_ShouldPass(int? startYear)
     {
         // Arrange
-        var model = CreateMovieDetail("tt123", plot: null, runtimeMinutes: 0, startYear: startYear);
+        var model = CreateMovieDetail("tt123", plot: null, seasonNumber: 1, episodeNumber: startYear);
         // Act
         var ok = TryValidateModel(model, out var results);
         // Assert

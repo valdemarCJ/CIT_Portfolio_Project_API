@@ -9,10 +9,11 @@ namespace CIT_Portfolio_Project_API.UnitTests.Models;
 [TestClass]
 public class WordIndexTests
 {
-    private WordIndex CreateWordIndex(string? word, int frequency) => new WordIndex
+    private WordIndex CreateWordIndex(string? word, string? tconst, string? field) => new WordIndex
     {
         Word = word!,
-        Frequency = frequency
+        Tconst = tconst!,
+        Field = field!
     };
 
     private bool TryValidateModel(object model, out ICollection<ValidationResult> results)

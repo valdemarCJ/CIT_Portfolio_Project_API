@@ -16,18 +16,16 @@ public class AuthController : ControllerBase
     /// <summary>
     /// Login with username and password to get a JWT.
     /// </summary>
-    /// <param name="username">Username.</param>
-    /// <param name="password">Password.</param>
+    /// <param name="request">Login request with username and password.</param>
     /// <param name="ct">Cancellation token.</param>
     /// <returns>JWT token and user information on success.</returns>
     [HttpPost("login")]
     public async Task<IActionResult> Login(
-        [FromQuery][Required] string username,
-        [FromQuery][Required] string password,
+        [FromBody][Required] LoginRequest request,
         CancellationToken ct)
     {
         // Delegate to auth manager; return 401 if credentials are invalid.
-        var res = await _auth.LoginAsync(new LoginRequest { Username = username, Password = password }, ct);
+        var res = await _auth.LoginAsync(request, ct);
         return res is null ? Unauthorized() : Ok(res);
     }
 }

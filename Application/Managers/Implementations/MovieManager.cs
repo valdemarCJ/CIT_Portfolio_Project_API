@@ -34,6 +34,39 @@ public class MovieManager : IMovieManager
         return dto;
     }
 
+    public async Task<PageDto<MovieDto>> GetMovieTypesAsync(int page, int pageSize, CancellationToken ct = default)
+    {
+        var pageDto = await _repo.GetMovieTypesAsync(page, pageSize, ct);
+        AddPageLinks(pageDto, "/api/movies/types/movies");
+        foreach (var m in pageDto.Items)
+        {
+            m.Links.Add(new LinkDto("self", $"/api/movies/{m.Tconst}"));
+        }
+        return pageDto;
+    }
+
+    public async Task<PageDto<MovieDto>> GetSeriesTypesAsync(int page, int pageSize, CancellationToken ct = default)
+    {
+        var pageDto = await _repo.GetSeriesTypesAsync(page, pageSize, ct);
+        AddPageLinks(pageDto, "/api/movies/types/series");
+        foreach (var m in pageDto.Items)
+        {
+            m.Links.Add(new LinkDto("self", $"/api/movies/{m.Tconst}"));
+        }
+        return pageDto;
+    }
+
+    public async Task<PageDto<MovieDto>> GetSpecialTypesAsync(int page, int pageSize, CancellationToken ct = default)
+    {
+        var pageDto = await _repo.GetSpecialTypesAsync(page, pageSize, ct);
+        AddPageLinks(pageDto, "/api/movies/types/special");
+        foreach (var m in pageDto.Items)
+        {
+            m.Links.Add(new LinkDto("self", $"/api/movies/{m.Tconst}"));
+        }
+        return pageDto;
+    }
+
     /// <summary>
     /// Bygger pagination-links. Bruger '?' eller '&' alt efter om basePath har query i forvejen.
     /// </summary>

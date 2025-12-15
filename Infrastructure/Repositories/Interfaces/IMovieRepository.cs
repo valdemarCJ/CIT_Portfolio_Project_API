@@ -12,4 +12,10 @@ public interface IMovieRepository
     Task<PageDto<MovieDto>> GetMoviesAsync(int page, int pageSize, CancellationToken ct = default);
     /// <summary>Finds a movie entity by tconst; null if not found.</summary>
     Task<Movie?> GetByIdAsync(string tconst, CancellationToken ct = default);
+    /// <summary>Returns paged movies filtered by movie types (movie, tvMovie, short).</summary>
+    Task<PageDto<MovieDto>> GetMovieTypesAsync(int page, int pageSize, CancellationToken ct = default);
+    /// <summary>Returns paged movies filtered by series types (tvMiniSeries, tvEpisode, tvSeries).</summary>
+    Task<PageDto<MovieDto>> GetSeriesTypesAsync(int page, int pageSize, CancellationToken ct = default);
+    /// <summary>Returns paged movies filtered by special types (tvShort, videoGame, video, tvSpecial).</summary>
+    Task<PageDto<MovieDto>> GetSpecialTypesAsync(int page, int pageSize, CancellationToken ct = default);
 }

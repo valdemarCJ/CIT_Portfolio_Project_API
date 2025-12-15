@@ -45,4 +45,19 @@ public class MoviesController : ControllerBase
         if (userId is null || userId <= 0) return Unauthorized();
         return Ok(await _searchManager.StructuredSearchAsync(userId.Value, title, plot, characters, person, page, pageSize, ct));
     }
+
+    [HttpGet("types/movies")]
+    // Get movies filtered by movie types (movie, tvMovie, short)
+    public async Task<IActionResult> GetMovieTypes([FromQuery] int page = 1, [FromQuery] int pageSize = 20, CancellationToken ct = default)
+    => Ok(await _manager.GetMovieTypesAsync(page, pageSize, ct));
+
+    [HttpGet("types/series")]
+    // Get movies filtered by series types (tvMiniSeries, tvEpisode, tvSeries)
+    public async Task<IActionResult> GetSeriesTypes([FromQuery] int page = 1, [FromQuery] int pageSize = 20, CancellationToken ct = default)
+    => Ok(await _manager.GetSeriesTypesAsync(page, pageSize, ct));
+
+    [HttpGet("types/special")]
+    // Get movies filtered by special types (tvShort, videoGame, video, tvSpecial)
+    public async Task<IActionResult> GetSpecialTypes([FromQuery] int page = 1, [FromQuery] int pageSize = 20, CancellationToken ct = default)
+    => Ok(await _manager.GetSpecialTypesAsync(page, pageSize, ct));
 }

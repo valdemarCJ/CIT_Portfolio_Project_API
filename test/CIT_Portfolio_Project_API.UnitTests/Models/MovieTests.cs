@@ -12,7 +12,7 @@ public class MovieTests
     private Movie CreateMovie(string? tconst, string? title) => new Movie
     {
         Tconst = tconst!,
-        Title = title
+        PrimaryTitle = title
     };
 
     private bool TryValidateModel(object model, out ICollection<ValidationResult> results)

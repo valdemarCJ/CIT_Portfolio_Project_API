@@ -76,8 +76,13 @@ public class AppDbContext : DbContext
         {
             entity.ToTable("movies");
             entity.Property(e => e.Tconst).HasColumnName("tconst");
-            // Store display title from 'primaryTitle' column (folded to lowercase 'primarytitle')
-            entity.Property(e => e.Title).HasColumnName("primarytitle");
+            entity.Property(e => e.TitleType).HasColumnName("titletype");
+            entity.Property(e => e.PrimaryTitle).HasColumnName("primarytitle");
+            entity.Property(e => e.OriginalTitle).HasColumnName("originaltitle");
+            entity.Property(e => e.IsAdult).HasColumnName("isadult");
+            entity.Property(e => e.StartYear).HasColumnName("startyear");
+            entity.Property(e => e.EndYear).HasColumnName("endyear");
+            entity.Property(e => e.RuntimeMinutes).HasColumnName("runtimeminutes");
         });
 
         modelBuilder.Entity<Rating>(entity =>

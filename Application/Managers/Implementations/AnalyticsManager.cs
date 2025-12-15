@@ -25,7 +25,7 @@ public class AnalyticsManager : IAnalyticsManager
     public async Task<IEnumerable<MovieDto>> SimilarMoviesAsync(string tconst, CancellationToken ct = default)
     {
         var rows = await _repo.SimilarMoviesAsync(tconst, ct);
-        return rows.Select(r => new MovieDto { Tconst = r.Tconst, Title = r.Title, Links = new List<LinkDto> { new("self", $"/api/movies/{r.Tconst}") } });
+        return rows.Select(r => new MovieDto { Tconst = r.Tconst, PrimaryTitle = r.Title, Links = new List<LinkDto> { new("self", $"/api/movies/{r.Tconst}") } });
     }
 
     /// <summary>
@@ -52,7 +52,7 @@ public class AnalyticsManager : IAnalyticsManager
     public async Task<IEnumerable<MovieDto>> ExactMatchAsync(string query, CancellationToken ct = default)
     {
         var rows = await _repo.ExactMatchAsync(query, ct);
-        return rows.Select(r => new MovieDto { Tconst = r.Tconst, Title = r.Title, Links = new List<LinkDto> { new("self", $"/api/movies/{r.Tconst}") } });
+        return rows.Select(r => new MovieDto { Tconst = r.Tconst, PrimaryTitle = r.Title, Links = new List<LinkDto> { new("self", $"/api/movies/{r.Tconst}") } });
     }
 
     /// <summary>
@@ -61,6 +61,6 @@ public class AnalyticsManager : IAnalyticsManager
     public async Task<IEnumerable<MovieDto>> BestMatchAsync(string query, CancellationToken ct = default)
     {
         var rows = await _repo.BestMatchAsync(query, ct);
-        return rows.Select(r => new MovieDto { Tconst = r.Tconst, Title = r.Title, Links = new List<LinkDto> { new("self", $"/api/movies/{r.Tconst}") } });
+        return rows.Select(r => new MovieDto { Tconst = r.Tconst, PrimaryTitle = r.Title, Links = new List<LinkDto> { new("self", $"/api/movies/{r.Tconst}") } });
     }
 }
