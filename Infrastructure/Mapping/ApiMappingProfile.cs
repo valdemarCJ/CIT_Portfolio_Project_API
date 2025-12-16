@@ -14,6 +14,7 @@ public class ApiMappingProfile : Profile
         CreateMap<MovieGenre, MovieGenreDto>();
         CreateMap<MoviePerson, MoviePersonDto>();
         CreateMap<Person, PersonDto>();
+        CreateMap<PersonKnownFor, PersonKnownForDto>();
         CreateMap<Rating, ImdbRatingDto>();
         CreateMap<User, UserDto>();
         CreateMap<WordIndex, WordIndexDto>();

@@ -98,6 +98,16 @@ public class AppDbContext : DbContext
             entity.ToTable("persons");
             entity.Property(e => e.Nconst).HasColumnName("nconst");
             entity.Property(e => e.Name).HasColumnName("primaryname");
+            entity.Property(e => e.BirthYear).HasColumnName("birthyear");
+            entity.Property(e => e.DeathYear).HasColumnName("deathyear");
+            entity.Property(e => e.NameRating).HasColumnName("namerating").HasColumnType("numeric(4,2)");
+        });
+
+        modelBuilder.Entity<PersonKnownFor>(entity =>
+        {
+            entity.ToTable("person_knownfor");
+            entity.Property(e => e.Nconst).HasColumnName("nconst");
+            entity.Property(e => e.Tconst).HasColumnName("tconst");
         });
 
         modelBuilder.Entity<MoviePerson>(entity =>

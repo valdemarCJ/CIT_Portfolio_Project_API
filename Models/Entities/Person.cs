@@ -12,4 +12,12 @@ public class Person
 
     [StringLength(256)]
     public string? Name { get; set; }
+    
+    [StringLength(4)]
+    public string? BirthYear { get; set; }
+    
+    [StringLength(4)]
+    public string? DeathYear { get; set; }
+    
+    public decimal? NameRating { get; set; }
 }
