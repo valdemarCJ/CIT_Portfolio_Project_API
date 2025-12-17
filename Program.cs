@@ -157,6 +157,8 @@ builder.Services.AddScoped<IRatingReadRepository, RatingReadRepository>();
 builder.Services.AddScoped<ISearchRepository, SearchRepository>();
 builder.Services.AddScoped<IAnalyticsRepository, AnalyticsRepository>();
 builder.Services.AddScoped<IWordIndexRepository, WordIndexRepository>();
+builder.Services.AddScoped<IPersonBookmarkRepository, PersonBookmarkRepository>();
+builder.Services.AddScoped<IPersonRatingRepository, PersonRatingRepository>();
 
 // DI: Managers (previously Services)
 builder.Services.AddScoped<IMovieManager, MovieManager>();
@@ -173,6 +175,8 @@ builder.Services.AddScoped<IRatingReadManager, RatingReadManager>();
 builder.Services.AddScoped<ISearchManager, SearchManager>();
 builder.Services.AddScoped<IAnalyticsManager, AnalyticsManager>();
 builder.Services.AddScoped<IWordIndexManager, WordIndexManager>();
+builder.Services.AddScoped<IPersonBookmarkManager, PersonBookmarkManager>();
+builder.Services.AddScoped<IPersonRatingManager, PersonRatingManager>();
 
 // CORS configuration for frontend
 builder.Services.AddCors(options =>

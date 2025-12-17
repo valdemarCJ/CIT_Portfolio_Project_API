@@ -24,6 +24,8 @@ public class AppDbContext : DbContext
     public DbSet<UserBookmark> UserBookmarks => Set<UserBookmark>();
     public DbSet<UserRating> UserRatings => Set<UserRating>();
     public DbSet<UserSearchHistory> UserSearchHistory => Set<UserSearchHistory>();
+    public DbSet<UserPersonBookmark> UserPersonBookmarks => Set<UserPersonBookmark>();
+    public DbSet<UserPersonRating> UserPersonRatings => Set<UserPersonRating>();
 
     // Function result sets (keyless)
     public DbSet<SearchRow> SearchRows => Set<SearchRow>();
@@ -57,6 +59,8 @@ public class AppDbContext : DbContext
         modelBuilder.Entity<UserBookmark>().HasKey(x => new { x.UserId, x.Tconst });
         modelBuilder.Entity<UserRating>().HasKey(x => x.Id);
         modelBuilder.Entity<UserSearchHistory>().HasKey(x => x.Id);
+        modelBuilder.Entity<UserPersonBookmark>().HasKey(x => new { x.UserId, x.Nconst });
+        modelBuilder.Entity<UserPersonRating>().HasKey(x => new { x.UserId, x.Nconst });
 
         // Keyless types for function results (read-only projections from DB functions/views)
         modelBuilder.Entity<SearchRow>().HasNoKey();
@@ -170,6 +174,24 @@ public class AppDbContext : DbContext
             entity.Property(e => e.UserId).HasColumnName("user_id");
             entity.Property(e => e.Tconst).HasColumnName("tconst");
             entity.Property(e => e.Note).HasColumnName("note");
+        });
+
+        modelBuilder.Entity<UserPersonBookmark>(entity =>
+        {
+            entity.ToTable("user_person_bookmarks");
+            entity.Ignore(e => e.Id);  // Table uses composite key (user_id, nconst), not auto-increment id
+            entity.Property(e => e.UserId).HasColumnName("user_id");
+            entity.Property(e => e.Nconst).HasColumnName("nconst");
+            entity.Property(e => e.Note).HasColumnName("note");
+        });
+
+        modelBuilder.Entity<UserPersonRating>(entity =>
+        {
+            entity.ToTable("user_person_ratings");
+            entity.Ignore(e => e.Id);  // Table uses composite key (user_id, nconst), not auto-increment id
+            entity.Property(e => e.UserId).HasColumnName("user_id");
+            entity.Property(e => e.Nconst).HasColumnName("nconst");
+            entity.Property(e => e.Value).HasColumnName("rating");
         });
     }
 

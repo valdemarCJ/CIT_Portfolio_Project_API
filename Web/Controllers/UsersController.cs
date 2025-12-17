@@ -13,8 +13,9 @@ public class UsersController : ControllerBase
     private readonly IUserManager _manager;
     private readonly ISearchManager _searchManager;
     private readonly IRatingManager _ratingManager;
-    public UsersController(IUserManager manager, ISearchManager searchManager, IRatingManager ratingManager)
-    { _manager = manager; _searchManager = searchManager; _ratingManager = ratingManager; }
+    private readonly IPersonRatingManager _personRatingManager;
+    public UsersController(IUserManager manager, ISearchManager searchManager, IRatingManager ratingManager, IPersonRatingManager personRatingManager)
+    { _manager = manager; _searchManager = searchManager; _ratingManager = ratingManager; _personRatingManager = personRatingManager; }
 
     public record RegisterRequest(string Username, string Email, string Password);
 
@@ -55,6 +56,18 @@ public class UsersController : ControllerBase
         if (tokenUserId is null || tokenUserId <= 0) return Unauthorized();
         if (tokenUserId.Value != id) return Forbid();
         var dto = await _ratingManager.GetRatingHistoryAsync(id, page, pageSize, ct);
+        return Ok(dto);
+    }
+
+    [HttpGet("{id:int}/history/person-ratings")]
+    [Authorize]
+    public async Task<IActionResult> GetPersonRatingHistory(int id, [FromQuery] int page = 1, [FromQuery] int pageSize = 20, CancellationToken ct = default)
+    {
+        // Auth + ownership: only the token owner may access their own history.
+        var tokenUserId = User.GetUserId();
+        if (tokenUserId is null || tokenUserId <= 0) return Unauthorized();
+        if (tokenUserId.Value != id) return Forbid();
+        var dto = await _personRatingManager.GetRatingHistoryAsync(id, page, pageSize, ct);
         return Ok(dto);
     }
 }
